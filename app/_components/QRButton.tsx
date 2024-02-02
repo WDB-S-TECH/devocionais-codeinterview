@@ -5,7 +5,7 @@ import { QRCodeSVG } from "qrcode.react"
 import { Fragment } from "react"
 
 export const QRButton = () => {
-	const url = "https://devociotnal.agj.news"
+	const url = "https://devocionais.agj.news"
 	return (
 		<Fragment>
 			<button
