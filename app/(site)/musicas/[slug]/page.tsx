@@ -14,12 +14,9 @@ export default async function Musicas({
 		return redirect("/404")
 	}
 	return (
-		<>
-			<h1>Devocionais AGJ</h1>
-			<MusicaBlockComponent
-				key={musica[0].slug}
-				musica={musica[0]}
-			/>
-		</>
+		<MusicaBlockComponent
+			key={musica[0].slug}
+			musica={musica[0]}
+		/>
 	)
 }

@@ -6,10 +6,10 @@ export default async function MusicaSlug() {
 	const musicas = await runQuery(musicasQuery)
 	return (
 		<>
-			{musicas.map((musica) => (
+			{musicas.map((musica, i, a) => (
 				<div key={musica.slug}>
 					<MusicaBlockComponent musica={musica} />
-					<div className="divider" />
+					{a.length !== 1 && i !== a.length - 1 && <div className="divider" />}
 				</div>
 			))}
 		</>

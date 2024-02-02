@@ -88,5 +88,16 @@ export default defineType({
 				},
 			],
 		},
+		{
+			name: "musicas",
+			title: "Músicas",
+			type: "array",
+			of: [
+				{
+					type: "reference",
+					to: [{ type: "musica" }],
+				},
+			],
+		},
 	],
 })

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { QRButton } from "./QRButton"
 
 export const Menubar = () => {
 	return (
@@ -58,12 +59,7 @@ export const Menubar = () => {
 				</ul>
 			</div>
 			<div className="navbar-end">
-				<Link
-					href={"/qr-code"}
-					className="btn btn-sm btn-ghost"
-				>
-					QR Code
-				</Link>
+				<QRButton />
 			</div>
 		</div>
 	)
