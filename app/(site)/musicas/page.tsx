@@ -1,6 +1,12 @@
 import { runQuery } from "@/sanity/lib/client"
 import { MusicaBlockComponent } from "./_components/MusicaBlockComponent"
 import { musicasQuery } from "./_components/musicasQuery"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+	title: "Músicas - AGJ Devocionais",
+	description: "List com as Músicas do AGJ Devocionais.",
+}
 
 export default async function MusicaSlug() {
 	const musicas = await runQuery(musicasQuery)
