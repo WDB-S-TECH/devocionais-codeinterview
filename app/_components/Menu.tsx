@@ -3,7 +3,7 @@ import { QRButton } from "./QRButton"
 
 export const Menubar = () => {
 	return (
-		<div className="navbar bg-base-300 sticky top-0 mb-6 shadow-sm md:rounded-b-lg">
+		<div className="navbar bg-base-300 sticky top-0 z-50 mb-6 shadow-md md:rounded-b-lg">
 			<div className="navbar-start">
 				<div className="dropdown">
 					<div
