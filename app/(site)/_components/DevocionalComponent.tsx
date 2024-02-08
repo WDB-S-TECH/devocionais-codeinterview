@@ -3,6 +3,13 @@ import { Devocional } from "./devocionalQuery"
 import dayjs from "dayjs"
 import "dayjs/locale/pt-br"
 import Link from "next/link"
+import {
+	ChevronRight,
+	ListCollapse,
+	Mic2,
+	Music2Icon,
+	MusicIcon,
+} from "lucide-react"
 
 export default function DevocionalComponent({
 	devocional,
@@ -11,43 +18,76 @@ export default function DevocionalComponent({
 }) {
 	return (
 		<div className="flex flex-col gap-4">
-			<span className="text-base font-bold">
+			<span className="badge badge-lg w-full rounded-md py-4 text-center text-base font-bold shadow-sm">
 				{dayjs(devocional.date)
 					.locale("pt-br")
 					.format("dddd, D [de] MMMM [de] YYYY")
 					.replace(/^\w/, (c) => c.toUpperCase())}
 			</span>
-			<span className="bold text-base font-bold">Programação:</span>
-			<ul className="prose list-inside list-disc pl-4">
-				{devocional.program.map((p) => {
-					let text = `${p.step}`
+			<div className="flex items-center gap-2">
+				<ListCollapse className="text-accent size-6" />
+				<span className="bold text-base font-bold">Programação:</span>
+			</div>
+			<ul className="prose mb-4 list-inside pl-4">
+				{devocional.program?.length === 0 ? (
+					<li>Sem programação</li>
+				) : (
+					devocional.program.map((p) => {
+						let text = ""
 
-					if (p.colaborador) {
-						text += ` - ${p.colaborador.name}`
-					}
+						if (p.step) {
+							text += `${p.step ?? ""}`
+						}
 
-					if (p.etd) {
-						text += ` - ${p.etd}min`
-					}
+						if (p.colaborador) {
+							text += ` - ${p.colaborador.name ?? ""}`
+						}
 
-					return <li key={p.step}>{text}</li>
-				})}
+						if (p.etd) {
+							text += ` (${p.etd}min)`
+						}
+
+						return (
+							<li
+								className="flex items-center gap-2"
+								key={p.step}
+							>
+								<ChevronRight className="size-5" />
+								{text}
+							</li>
+						)
+					})
+				)}
 			</ul>
 
-			<span className="bold text-base font-bold">
-				Músicas: (Clique para ver a letra)
-			</span>
-			<ul className="prose list-inside list-disc pl-4">
-				{devocional.musicas.map((m) => {
-					return (
-						<li key={m.slug.current}>
-							<Link href={`/musicas/${m.slug.current}`}>{m.title}</Link>
-						</li>
-					)
-				})}
+			<div className="flex items-center gap-2">
+				<MusicIcon className="text-accent size-6" />
+				<span className="bold text-base font-bold">
+					Músicas: (Clique para ver a letra)
+				</span>
+			</div>
+			<ul className="prose mb-4 list-inside pl-4">
+				{devocional.musicas?.length ? (
+					devocional.musicas.map((m) => {
+						return (
+							<li
+								key={m.slug.current}
+								className="flex items-center gap-2"
+							>
+								<Music2Icon className="size-5" />
+								<Link href={`/musicas/${m.slug.current}`}>{m.title}</Link>
+							</li>
+						)
+					})
+				) : (
+					<li>Sem músicas na programação</li>
+				)}
 			</ul>
 
-			<span className="bold text-base font-bold">Reflexão:</span>
+			<div className="flex items-center gap-2">
+				<Mic2 className="text-accent size-6" />
+				<span className="bold text-base font-bold">Reflexão:</span>
+			</div>
 
 			<div className="prose-lg">
 				<h2>{devocional.title}</h2>

@@ -24,19 +24,22 @@ export const QRButton = () => {
 				id="qrcode-modal-menu-top"
 				className="modal"
 			>
-				<div className="modal-box flex flex-col items-center justify-center gap-4 p-10">
+				<div className="modal-box flex flex-col items-center justify-center gap-4 bg-white p-10">
 					<span className="text-xl font-bold">AGJ Devocionais - QR Code</span>
 					<QRCodeSVG
 						value={url}
 						size={256}
+						className="m-6"
 					/>
 					<Link
 						href={"/"}
-						className="text-lg"
+						className="text-lg underline"
 					>
 						Acesse: {url}
 					</Link>
-					<span className="text-lg">Print e divulgue!</span>
+					<span className="badge badge-accent badge-lg rounded-md px-4 py-4 text-lg">
+						Print e divulgue!
+					</span>
 				</div>
 				<form
 					method="dialog"

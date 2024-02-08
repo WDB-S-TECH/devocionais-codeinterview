@@ -8,7 +8,7 @@ export default function StudioLayout({
 	return (
 		<div className={"mx-auto max-w-2xl"}>
 			<Menubar />
-			<section className="px-4 sm:px-6 md:px-0">{children}</section>
+			<section className="px-4 sm:px-6 md:px-4">{children}</section>
 		</div>
 	)
 }
