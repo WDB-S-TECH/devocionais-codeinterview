@@ -5,7 +5,7 @@ import { Metadata } from "next"
 
 export const metadata: Metadata = {
 	title: "Músicas - AGJ Devocionais",
-	description: "List com as Músicas do AGJ Devocionais.",
+	description: "Lista com as Músicas do AGJ Devocionais.",
 }
 
 export default async function MusicaSlug() {
