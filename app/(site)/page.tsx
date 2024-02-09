@@ -3,8 +3,8 @@ import DevocionalComponent from "./_components/DevocionalComponent"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-	title: "Devocionais Diários - AGJ Devocionais",
-	description: "Nossos Devocionais diários em lista aqui",
+	title: "Devocionais Semanais - AGJ Devocionais",
+	description: "Nossos Devocionais semanais em lista aqui",
 }
 export default async function Home() {
 	const devocionais = await fetchDevocional()
