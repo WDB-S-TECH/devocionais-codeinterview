@@ -19,5 +19,6 @@ export const musicaBySlugQuery = q("*")
 		artist: q.string().optional(),
 		lyrics: q.array(q.contentBlock()),
 	})
+	.order("title asc")
 
 export type Musica = z.infer<typeof musicasQuery.schema>[number]

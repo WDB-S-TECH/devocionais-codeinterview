@@ -17,7 +17,7 @@ export const devocionalQuery = groq`
     colaborador->{name},
     etd
     }
-}`
+} | order(date desc)`
 
 export type Devocional = {
 	date: string

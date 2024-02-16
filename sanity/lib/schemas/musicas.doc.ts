@@ -15,6 +15,7 @@ export default defineType({
 			name: "slug",
 			title: "Slug",
 			type: "slug",
+			validation: (validation) => validation.required(),
 			options: {
 				source: "title",
 				maxLength: 200, // will be ignored if slugify is set

@@ -64,17 +64,27 @@ export default function DevocionalComponent({
 				</div>
 				<ul className="prose mb-6 list-inside pl-4">
 					{devocional.musicas?.length ? (
-						devocional.musicas.map((m) => {
-							return (
-								<li
-									key={m.slug.current}
-									className="flex items-center gap-2"
-								>
-									<Music2Icon className="size-5" />
-									<Link href={`/musicas/${m.slug.current}`}>{m.title}</Link>
-								</li>
-							)
-						})
+						devocional.musicas
+							.sort((a, b) => {
+								if (a.title < b.title) {
+									return -1
+								}
+								if (a.title > b.title) {
+									return 1
+								}
+								return 0
+							})
+							.map((m) => {
+								return (
+									<li
+										key={m.slug?.current}
+										className="flex items-center gap-2"
+									>
+										<Music2Icon className="size-5" />
+										<Link href={`/musicas/${m.slug?.current}`}>{m.title}</Link>
+									</li>
+								)
+							})
 					) : (
 						<li>Sem músicas na programação</li>
 					)}
