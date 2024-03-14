@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 }
 export default async function Home() {
 	const devocionais = await fetchDevocional()
+
 	return (
 		<main>
 			{devocionais?.map((d, i, a) => (
