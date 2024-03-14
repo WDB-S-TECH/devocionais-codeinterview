@@ -8,9 +8,6 @@ export const metadata: Metadata = {
 }
 export default async function Home() {
 	const devocionais = await fetchDevocional()
-
-	console.log(devocionais.map((d) => d.musicas?.map((m) => m.slug.current)))
-
 	return (
 		<main>
 			{devocionais?.map((d, i, a) => (
