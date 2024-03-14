@@ -45,9 +45,5 @@ export type Devocional = {
 }
 
 export const fetchDevocional = async (): Promise<Devocional[]> => {
-	return await client.fetch(devocionalQuery, undefined, {
-		next: {
-			revalidate: 3600,
-		},
-	})
+	return await client.fetch(devocionalQuery)
 }

@@ -1,6 +1,6 @@
 import { runQuery } from "@/sanity/lib/client"
 import { MusicaBlockComponent } from "../_components/MusicaBlockComponent"
-import { musicaBySlugQuery, musicasQuery } from "../_components/musicasQuery"
+import { musicaBySlugQuery } from "../_components/musicasQuery"
 import { redirect } from "next/navigation"
 
 import type { Metadata, ResolvingMetadata } from "next"
@@ -13,9 +13,6 @@ export async function generateMetadata(
 	{ params }: Props,
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
-	// read route params
-	const slug = params.slug
-
 	// fetch data
 	const musicas = await runQuery(musicaBySlugQuery, { slug: params.slug })
 
