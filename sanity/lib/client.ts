@@ -14,9 +14,5 @@ export const client = createClient({
 // 👇 Safe query runner
 export const runQuery = makeSafeQueryRunner(
 	(query, params: Record<string, unknown> = {}) =>
-		client.fetch(query, params, {
-			next: {
-				revalidate: 3600,
-			},
-		})
+		client.fetch(query, params, {})
 )

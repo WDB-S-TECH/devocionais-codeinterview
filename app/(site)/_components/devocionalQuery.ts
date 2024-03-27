@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { client } from "@/sanity/lib/client"
 import { groq } from "next-sanity"
+import { unstable_cache } from "next/cache"
 
 export const devocionalQuery = groq`
 *[_type == 'devocional' && !(_id in path("drafts.**")) ]
@@ -44,6 +45,13 @@ export type Devocional = {
 	}[]
 }
 
-export const fetchDevocional = async (): Promise<Devocional[]> => {
-	return await client.fetch(devocionalQuery)
-}
+export const fetchDevocional = unstable_cache(
+	async (): Promise<Devocional[]> => {
+		return await client.fetch(devocionalQuery)
+	},
+	["devocionalQuery"],
+	{
+		tags: ["devocionalQuery"],
+		revalidate: 60,
+	}
+)
