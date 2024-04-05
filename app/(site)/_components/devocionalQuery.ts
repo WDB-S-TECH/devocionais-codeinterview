@@ -45,13 +45,6 @@ export type Devocional = {
 	}[]
 }
 
-export const fetchDevocional = unstable_cache(
-	async (): Promise<Devocional[]> => {
-		return await client.fetch(devocionalQuery)
-	},
-	["devocionalQuery"],
-	{
-		tags: ["devocionalQuery"],
-		revalidate: 60,
-	}
-)
+export const fetchDevocional = async (): Promise<Devocional[]> => {
+	return await client.fetch(devocionalQuery)
+}

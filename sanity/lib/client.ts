@@ -14,5 +14,10 @@ export const client = createClient({
 // 👇 Safe query runner
 export const runQuery = makeSafeQueryRunner(
 	(query, params: Record<string, unknown> = {}) =>
-		client.fetch(query, params, {})
+		client.fetch(query, params, {
+			next: {
+				tags: ["devocionalQuery"],
+				revalidate: 0,
+			},
+		})
 )
