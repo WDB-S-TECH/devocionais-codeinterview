@@ -33,7 +33,7 @@ export default function DevocionalComponent({
 					{!devocional.program?.length ? (
 						<li>Sem programação</li>
 					) : (
-						devocional.program.map((p) => {
+						devocional.program.map((p, i) => {
 							let text = ""
 							if (p.step) {
 								text += `${p.step ?? ""}`
@@ -47,7 +47,7 @@ export default function DevocionalComponent({
 							return (
 								<li
 									className="flex items-center gap-2"
-									key={p.step}
+									key={`${p.step}-${i}`}
 								>
 									<ChevronRight className="size-5" />
 									{text}

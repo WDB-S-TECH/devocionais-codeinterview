@@ -14,7 +14,7 @@ export default async function Home() {
 	return (
 		<main>
 			{devocionais?.map((d, i, a) => (
-				<div key={d.title}>
+				<div key={`${d.title}-${i}`}>
 					<DevocionalComponent devocional={d} />
 					{a.length !== 1 && i !== a.length - 1 && (
 						<div className="divider py-10" />
