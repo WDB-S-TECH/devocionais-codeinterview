@@ -1,0 +1,172 @@
+# CURSOR RULES - PROJETO DEVOCIONAIS
+
+## CONTEXTO DO PROJETO
+- **Nome**: Devocionais
+- **Propósito**: Aplicação de Meditações Matinais para instituição de saúde
+- **Funcionalidades principais**:
+  - Visualização de devocionais semanais com reflexões
+  - Biblioteca de músicas com letras para acompanhar as meditações
+  - Sistema de QR Code para acesso móvel (WhatsApp/impressão)
+  - Interface administrativa via Sanity Studio
+
+## STACK TECNOLÓGICO
+- **Framework**: Next.js 14 (App Router)
+- **CMS**: Sanity.io com Sanity Studio
+- **Linguagem**: TypeScript
+- **Styling**: Tailwind CSS + DaisyUI + Shadcn UI
+- **Query Language**: GROQ (para Sanity)
+- **Validação**: Zod
+- **Formatação de Data**: dayjs (locale pt-br)
+- **Ícones**: Lucide React
+
+## ESTRUTURA DO PROJETO
+```
+app/
+├── _components/           # Componentes globais (Menu, etc)
+├── (site)/               # Grupo de rotas principais
+│   ├── _components/      # Componentes específicos do site
+│   │   ├── DevocionalComponent.tsx
+│   │   └── devocionalQuery.ts
+│   ├── musicas/          # Seção de músicas
+│   │   ├── _components/  # Componentes de músicas
+│   │   │   ├── MusicaBlockComponent.tsx
+│   │   │   └── musicasQuery.tsx
+│   │   ├── [slug]/       # Página dinâmica de música individual
+│   │   └── page.tsx      # Lista de todas as músicas
+│   ├── layout.tsx        # Layout do site
+│   ├── page.tsx          # Página inicial (lista devocionais)
+│   ├── loading.tsx       # Loading state
+│   └── error.tsx         # Error boundary
+├── api/                  # API routes
+└── studio/               # Sanity Studio
+    └── [[...index]]/     # Catch-all para studio
+
+sanity/
+├── lib/
+│   └── schemas/          # Schemas do Sanity
+│       ├── blockContent.ts
+│       ├── musicas.doc.ts
+│       ├── devocional.doc.ts
+│       └── colaborador.doc.ts
+└── schema.ts             # Schema principal
+```
+
+## SCHEMAS SANITY (CONTENT TYPES)
+```typescript
+// Tipos principais definidos em schema.ts:
+export const schema = {
+  types: [
+    blockContent,    // Conteúdo rich text
+    musica,         // Músicas com letras
+    devocional,     // Devocionais/meditações
+    colaborador     // Colaboradores/palestrantes
+  ]
+}
+```
+
+### Schema Devocional:
+- `date`: Data do devocional
+- `title`: Título da reflexão
+- `verse`: Versículo bíblico
+- `content`: Conteúdo da reflexão (PortableText)
+- `musicas[]`: Referências para músicas
+- `program[]`: Programação com colaboradores e tempo estimado
+
+### Schema Música:
+- `title`: Nome da música
+- `slug`: Slug para URL
+- `artist`: Artista/compositor
+- `lyrics`: Letra da música (PortableText)
+
+### Schema Colaborador:
+- `name`: Nome do colaborador
+
+## DIRETRIZES DE DESENVOLVIMENTO
+
+### QUERIES GROQ
+- Use GROQ para todas as queries do Sanity
+- Sempre ordenar devocionais por `date desc`
+- Para músicas, usar ordenação alfabética por `title asc`
+- Exemplo de query padrão:
+```groq
+*[_type == 'devocional' && !(_id in path("drafts.**"))] {
+  date, title, verse, content,
+  musicas[]->{ ... },
+  program[]{ step, colaborador->{name}, etd }
+} | order(date desc)
+```
+
+### COMPONENTES
+- Use Server Components quando possível
+- Client Components apenas quando necessário (interatividade)
+- Componentes de UI seguem padrão do Shadcn
+- Classes Tailwind + DaisyUI para styling
+- Ícones do Lucide React
+
+### FORMATAÇÃO
+- Datas sempre em português brasileiro usando dayjs
+- Formato: "Segunda-feira, 15 de janeiro de 2024"
+- Use `dayjs(date).locale("pt-br").format("dddd, D [de] MMMM [de] YYYY")`
+
+### ESTRUTURA DE DADOS
+- Use Zod para validação de tipos
+- Mantenha tipos TypeScript sincronizados com schemas Sanity
+- PortableText para todo conteúdo rich text
+- Slugs obrigatórios para content navegável
+
+### NAVEGAÇÃO E UX
+- Layout responsivo (max-w-2xl)
+- Sticky header com data do devocional
+- Links para músicas individuais via slug
+- Loading states e error boundaries
+- Divisores visuais entre itens
+
+### SANITY STUDIO
+- Acessível via `/studio`
+- Configuração em `sanity.config.ts`
+- Schemas organizados em `sanity/lib/schemas/`
+- Use preview para visualização de conteúdo
+
+### ACESSIBILIDADE E QR CODES
+- Interface otimizada para mobile (QR codes)
+- Texto legível para impressão
+- Navegação simples para usuários idosos
+- Contrast ratio adequado
+
+## PADRÕES DE CÓDIGO
+
+### Nomenclatura:
+- Componentes: PascalCase (DevocionalComponent)
+- Arquivos de query: camelCase + Query (devocionalQuery.ts)
+- Types: PascalCase seguindo o nome do schema
+
+### Imports:
+```typescript
+// Ordem de imports:
+1. React/Next.js
+2. Bibliotecas externas
+3. Componentes internos
+4. Queries/tipos
+5. Ícones
+```
+
+### Error Handling:
+- Error boundaries em páginas importantes
+- Loading states para todas as queries
+- Fallbacks gracefuls (ex: "Sem músicas na programação")
+- Integração com Sentry para monitoramento
+
+## COMANDOS ÚTEIS
+- `npm run dev` - Desenvolvimento
+- `npm run build` - Build
+- `sanity start` - Sanity Studio local
+- `sanity deploy` - Deploy do studio
+
+## OBSERVAÇÕES IMPORTANTES
+- Projeto focado em simplicidade e acessibilidade
+- Usuários principais: funcionários e pacientes de instituição de saúde
+- Conteúdo espiritual/religioso (devocionais cristãos)
+- Sistema de impressão de QR codes para distribuição física
+- Manutenção de conteúdo via Sanity Studio por administradores
+
+Sempre considere a experiência do usuário final: pessoas que podem não ser tech-savvy, usando em contexto hospitalar/clínico, potencialmente em dispositivos móveis via QR code.
