@@ -11,13 +11,14 @@ export const metadata: Metadata = {
 export default async function MusicaSlug() {
 	const musicas = await runQuery(musicasQuery)
 	return (
-		<div className="px-4 py-2 sm:px-6 md:px-4">
-			{musicas.map((musica, i, a) => (
-				<div key={musica.slug}>
-					<MusicaBlockComponent musica={musica} />
-					{a.length !== 1 && i !== a.length - 1 && <div className="divider" />}
-				</div>
-			))}
+		<div className="mx-auto max-w-7xl px-4 py-2 sm:px-6 md:px-4">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{musicas.map((musica) => (
+					<div key={musica.slug}>
+						<MusicaBlockComponent musica={musica} />
+					</div>
+				))}
+			</div>
 		</div>
 	)
 }

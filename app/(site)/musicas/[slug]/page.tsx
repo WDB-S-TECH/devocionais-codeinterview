@@ -38,9 +38,12 @@ export default async function Musicas({
 		return redirect("/404")
 	}
 	return (
-		<MusicaBlockComponent
-			key={musica[0].slug}
-			musica={musica[0]}
-		/>
+		<div className="mx-auto max-w-2xl px-4 py-2 sm:px-6 md:px-4">
+			<MusicaBlockComponent
+				key={musica[0].slug}
+				musica={musica[0]}
+				variant="full"
+			/>
+		</div>
 	)
 }

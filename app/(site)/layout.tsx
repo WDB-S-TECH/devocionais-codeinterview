@@ -6,9 +6,9 @@ export default function StudioLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<div className={"mx-auto max-w-2xl"}>
+		<div className="min-h-screen">
 			<Menubar />
-			<section className="">{children}</section>
+			<section className="w-full">{children}</section>
 		</div>
 	)
 }

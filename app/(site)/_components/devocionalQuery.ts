@@ -4,6 +4,7 @@ import { groq } from "next-sanity"
 export const devocionalQuery = groq`
 *[_type == 'devocional' && !(_id in path("drafts.**")) ]
 {
+  _id,
   date,
   title,
   verse,
@@ -19,6 +20,7 @@ export const devocionalQuery = groq`
 } | order(date desc)`
 
 export type Devocional = {
+	_id: string
 	date: string
 	title: string
 	verse: string
@@ -44,5 +46,11 @@ export type Devocional = {
 }
 
 export const fetchDevocional = async (): Promise<Devocional[]> => {
-	return await client.fetch(devocionalQuery)
+	return await client.fetch(devocionalQuery, {}, {
+		cache: 'no-store',
+		next: { 
+			revalidate: 120, // revalidate every 2 minutes  
+			tags: ['devocionais', 'home'] 
+		}
+	})
 }

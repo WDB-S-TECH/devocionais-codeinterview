@@ -9,21 +9,37 @@ import {
 	Mic2,
 	Music2Icon,
 	MusicIcon,
+	ExternalLink,
+	Eye
 } from "lucide-react"
 
 export default function DevocionalComponent({
 	devocional,
+	devocionalId,
 }: {
 	devocional: Devocional
+	devocionalId?: string
 }) {
 	return (
 		<div className="flex flex-col gap-4">
-			<span className="border-border bg-base-100 sticky top-16 w-full rounded-none border border-solid py-1 text-center text-base font-bold shadow-md md:top-[66px] md:rounded-md">
-				{dayjs(devocional.date)
-					.locale("pt-br")
-					.format("dddd, D [de] MMMM [de] YYYY")
-					.replace(/^\w/, (c) => c.toUpperCase())}
-			</span>
+			<div className="border-border bg-base-100 sticky top-16 w-full rounded-none border border-solid py-1 text-center text-base font-bold shadow-md md:top-[66px] md:rounded-md flex items-center justify-between px-4">
+				<span className="flex-1">
+					{dayjs(devocional.date)
+						.locale("pt-br")
+						.format("dddd, D [de] MMMM [de] YYYY")
+						.replace(/^\w/, (c) => c.toUpperCase())}
+				</span>
+				{devocionalId && (
+					<Link 
+						href={`/devocional/${devocionalId}`}
+						className="btn btn-ghost btn-sm"
+						aria-label="Ver detalhes do devocional"
+					>
+						<Eye className="w-4 h-4" />
+						Ver Detalhes
+					</Link>
+				)}
+			</div>
 			<div className="px-4 py-2 sm:px-6 md:px-4">
 				<div className="flex items-center gap-2">
 					<ListCollapse className="text-accent size-6" />

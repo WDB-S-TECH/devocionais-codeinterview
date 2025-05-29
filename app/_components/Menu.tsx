@@ -39,6 +39,9 @@ export const Menubar = () => {
 						<li>
 							<Link href={"/musicas"}>Musicas</Link>
 						</li>
+						<li>
+							<Link href={"/dashboard"}>Dashboard</Link>
+						</li>
 					</ul>
 				</div>
 				<Link
@@ -55,6 +58,9 @@ export const Menubar = () => {
 					</li>
 					<li>
 						<Link href={"/musicas"}>Musicas</Link>
+					</li>
+					<li>
+						<Link href={"/dashboard"}>Dashboard</Link>
 					</li>
 				</ul>
 			</div>
